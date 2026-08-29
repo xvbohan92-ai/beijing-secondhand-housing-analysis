@@ -31,8 +31,8 @@ notebook["cells"] = [
 ## tl;dr
 
 - 原始 CSV 含 3,000 条有效房源记录；去除 709 条完全重复记录后剩余 2,291 条。
-- 在固定的 80/20 测试划分上，线性回归的测试集 R² 约为 0.670，LightGBM 约为 0.694。
-- LightGBM 的测试集 MAE 约为 273 万元，低于线性回归的约 359 万元，但绝对误差仍较大。
+- 固定 80/20 划分上，LightGBM 的 R² 为 0.694、MAE 为 273 万元；线性回归分别为 0.670 和 359 万元。
+- 五折交叉验证中，LightGBM 的平均 MAE 更低（252 万元），但线性回归的平均 R² 更高（0.789 对 0.752），因此不能声称某一模型在所有指标上稳定胜出。
 - 结果说明面积和地区等变量具有预测信息，但现有字段不足以支持高精度估价，也不能据此作因果解释。
 """
     ),
@@ -57,7 +57,7 @@ import pandas as pd
 from IPython.display import Image, display
 
 from src.clean_data import clean_dataframe
-from src.model import fit_models
+from src.model import cross_validation_results, fit_models
 
 ROOT = Path.cwd()
 RAW_PATH = ROOT / "data" / "raw" / "anjuke.csv"
@@ -99,15 +99,22 @@ district_summary.round(0)"""
     code(
         """model_metrics, linear_coefficients, feature_importance, predictions = fit_models(clean)
 pd.DataFrame(model_metrics).loc[["mae_wan", "rmse_wan", "r2"],
-                                ["linear_regression", "lightgbm"]].round(3)"""
+                                ["dummy_mean", "linear_regression", "lightgbm"]].round(3)"""
     ),
     code('display(Image(filename=str(ROOT / "reports" / "figures" / "model_predictions.png")))'),
+    markdown("### 5. 五折交叉验证"),
+    code(
+        """cv_folds = cross_validation_results(clean)
+cv_summary = cv_folds.groupby("model")[["mae_wan", "rmse_wan", "r2"]].agg(["mean", "std"])
+cv_summary.round(3)"""
+    ),
+    code('display(Image(filename=str(ROOT / "reports" / "figures" / "residuals.png")))'),
     markdown(
         """## Takeaways
 
 1. 数据规模应按 3,000 条有效记录计算，Excel 中约 6,001 行来自异常换行产生的空白行。
 2. 完全重复记录占比高，必须在数据划分前处理，否则容易高估泛化能力。
-3. LightGBM 略优于线性回归，但测试误差仍然较大；该模型更适合作为课程项目基线，而非真实估价工具。
+3. LightGBM 在固定划分和五折平均 MAE 上更低，但线性回归的五折平均 R² 更高；模型优劣取决于评价指标，且误差仍然较大。
 4. 原论文将地区数值化后直接回归的方法不稳健。本项目改用独热编码，地区系数只相对于基准地区解释。
 5. 数据缺少地铁距离、装修、朝向、楼层总数和挂牌日期等重要特征，限制了预测能力。
 """

@@ -3,6 +3,11 @@
   "train_rows": 1832,
   "test_rows": 459,
   "random_state": 42,
+  "dummy_mean": {
+    "mae_wan": 730.4605986766369,
+    "rmse_wan": 1202.66343120403,
+    "r2": -8.721025715408004e-05
+  },
   "linear_regression": {
     "mae_wan": 358.7675839210093,
     "rmse_wan": 691.0948232530062,

@@ -16,5 +16,12 @@ Floor,Garden,Layout,Price,Region,Size,Year
 
 项目使用的本地文件包含3,000条有效房源记录。原 CSV 的异常换行会使 Excel 显示约6,001行，但其中约一半为空白行。
 
-代码许可证不授予任何第三方数据的使用或再分发权利。
+用于生成仓库结果的文件 SHA-256 为：
 
+```text
+7f20e81711ea0e25caf27cdb47d72ca8227f7a3872d331613448a514d0e98240
+```
+
+可使用 PowerShell 的 `Get-FileHash data/raw/anjuke.csv -Algorithm SHA256` 核对。公开的 `data/sample/anjuke_synthetic.csv` 仅用于验证端到端流程，不代表真实房源，也不能复现论文数值。
+
+代码许可证不授予任何第三方数据的使用或再分发权利。
