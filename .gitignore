@@ -1,0 +1,14 @@
+.venv/
+.python-packages/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+.DS_Store
+Thumbs.db
+
+# Cleaned row-level data can be reproduced from data/raw/anjuke.csv.
+data/raw/*.csv
+data/processed/*.csv
+!data/processed/.gitkeep

@@ -1,0 +1,18 @@
+{
+  "raw_rows": 3000,
+  "raw_columns": 7,
+  "missing_values": {
+    "Floor": 0,
+    "Garden": 0,
+    "Layout": 0,
+    "Price": 0,
+    "Region": 0,
+    "Size": 0,
+    "Year": 0
+  },
+  "extra_exact_duplicate_rows": 709,
+  "clean_rows": 2291,
+  "removed_exact_duplicate_rows": 709,
+  "year_1900_treated_as_missing": 2,
+  "district_count": 17
+}
