@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | `bedrooms` | 卧室数 | 从 `Layout` 提取“室”前数字 |
 | `living_rooms` | 客厅数 | 从 `Layout` 提取“厅”前数字；缺少“厅”时记为 0 |
-| `district` | 区县 | `Region` 第一段 |
+| `district` | 位置类别 | `Region` 第一段；包含北京市 16 个行政区及“北京周边”类别 |
 | `subdistrict` | 片区 | `Region` 第二段 |
 | `building_age_2018` | 截至2018年的房龄 | `2018 - construction_year` |
 | `unit_price_yuan_sqm` | 单位面积价格 | `price_wan × 10000 ÷ size_sqm` |
@@ -29,4 +29,3 @@
 - `Region` 第三段疑似被截断，因此不作为可靠的地理层级。
 - `Year = 1900` 很可能是未知年份的占位值。
 - 数据来源授权及公开再分发条件尚未核实。
-

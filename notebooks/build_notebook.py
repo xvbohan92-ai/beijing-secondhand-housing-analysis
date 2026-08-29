@@ -30,7 +30,7 @@ notebook["cells"] = [
 
 ## tl;dr
 
-- 原始 CSV 含 3,000 条有效房源记录；去除 709 条完全重复记录后剩余 2,291 条。
+- 原始 CSV 含 3,000 条有效房源记录，覆盖 17 个位置类别（北京市 16 个行政区及北京周边）；去除 709 条完全重复记录后剩余 2,291 条。
 - 固定 80/20 划分上，LightGBM 的 R² 为 0.694、MAE 为 273 万元；线性回归分别为 0.670 和 359 万元。
 - 五折交叉验证中，LightGBM 的平均 MAE 更低（252 万元），但线性回归的平均 R² 更高（0.789 对 0.752），因此不能声称某一模型在所有指标上稳定胜出。
 - 结果说明面积和地区等变量具有预测信息，但现有字段不足以支持高精度估价，也不能据此作因果解释。
@@ -68,9 +68,9 @@ quality"""
     markdown("## Data"),
     code(
         """pd.DataFrame({
-    "指标": ["原始记录", "完全重复记录", "去重后记录", "区县数量"],
+    "指标": ["原始记录", "完全重复记录", "去重后记录", "位置类别数量"],
     "数值": [quality["raw_rows"], quality["removed_exact_duplicate_rows"],
-             quality["clean_rows"], quality["district_count"]],
+             quality["clean_rows"], quality["location_category_count"]],
 })"""
     ),
     code(

@@ -10,7 +10,7 @@ This project re-engineers an earlier SPSS-based study into a transparent Python 
 
 ## Key Results
 
-- 3,000 raw housing records across 17 Beijing districts
+- 3,000 housing records across 17 location categories, including all 16 Beijing districts and Beijing-adjacent areas
 - 709 exact duplicate rows identified during data-quality auditing
 - 2,291 deduplicated records used for modeling
 - LightGBM fixed-split test R²: 0.694
@@ -30,6 +30,10 @@ The values above are from one fixed 80/20 train-test split (`random_state=42`). 
 | LightGBM | 252.05 ± 34.62 | 695.52 ± 182.69 | 0.752 ± 0.064 |
 
 LightGBM has the lowest average MAE, while linear regression has the strongest average RMSE and R². The comparison therefore does not support claiming that either model dominates on every metric.
+
+### Error by Price Band
+
+On the fixed test set, LightGBM has substantially lower MAE for listings below RMB 10M. For listings at or above RMB 10M (`n=106`), both models have an MAE of approximately RMB 7.9M, indicating that high-price listings are the main source of absolute prediction error. Full results are in [`reports/model_results/price_band_errors.csv`](reports/model_results/price_band_errors.csv).
 
 ![Median unit price by district](reports/figures/district_median_unit_price.png)
 

@@ -71,7 +71,7 @@ def clean_dataframe(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
             "clean_rows": int(len(clean)),
             "removed_exact_duplicate_rows": int(len(raw) - len(clean)),
             "year_1900_treated_as_missing": int(raw["Year"].eq(1900).sum()),
-            "district_count": int(clean["district"].nunique()),
+            "location_category_count": int(clean["district"].nunique()),
         }
     )
     return clean, summary
@@ -106,4 +106,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

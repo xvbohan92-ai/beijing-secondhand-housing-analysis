@@ -14,5 +14,5 @@
   "clean_rows": 2291,
   "removed_exact_duplicate_rows": 709,
   "year_1900_treated_as_missing": 2,
-  "district_count": 17
+  "location_category_count": 17
 }
